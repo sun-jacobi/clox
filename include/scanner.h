@@ -3,6 +3,8 @@
 #define SCANNER_H
 #include <token.h>
 #include <vector>
+#include <error.h>
+
 
 class Scanner {
 private:
@@ -33,7 +35,7 @@ public:
             case '*' : addToken(TokenType::Star); break;
             case '+' : addToken(TokenType::Add); break;
             default:
-                break;
+                Logger::report(line, "unexpected character");
             }
        } 
        return tokens;
