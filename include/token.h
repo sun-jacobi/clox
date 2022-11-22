@@ -1,5 +1,4 @@
 
-
 #ifndef TOKEN_H
 #define TOKEN_H
 
@@ -44,14 +43,8 @@ private :
     int line; 
 
 public: 
-    Token(TokenType ty, std::string lit, int line) : ty(ty), lit(lit), line(line) {}
-    Token(TokenType ty, int line) : ty(ty),line(line) {}
-    std::string type() {
-        switch (ty) {
-            case(TokenType::Add) : return "+";
-            case(TokenType::Star) : return "*";
-            default: return "";
-        }
-    }
+    Token(TokenType ty, std::string lit, int line);
+    Token(TokenType ty, int line);
+    std::string type();
 };
 #endif
