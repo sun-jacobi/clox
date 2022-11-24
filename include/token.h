@@ -1,7 +1,5 @@
-
 #ifndef TOKEN_H
 #define TOKEN_H
-
 #include <string>
 
 
@@ -24,6 +22,8 @@ enum TokenType {
     Comma,
     SemiCol, // ; 
     And, // &
+    Dot,
+    Excla, // !
 
     // Literals
     Ident, Str, Num,  

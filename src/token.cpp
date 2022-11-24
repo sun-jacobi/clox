@@ -9,6 +9,9 @@ std::string Token::type() {
     switch (ty) {
         case(TokenType::Add) : return "+";
         case(TokenType::Star) : return "*";
+        case(TokenType::DoubleEq) : return "==";
+        case(TokenType::Eq) : return "=";
+        case(TokenType::Str) : return "string";
         default: return "";
     }
 }

@@ -3,6 +3,8 @@
 #define SCANNER_H
 #include <token.h>
 #include <vector>
+#include <string>
+//--------
 #include <error.h>
 
 
@@ -17,12 +19,15 @@ private:
     char peek();
 
     char pop();
-
+    void commentOut();
+    std::string consumeStr(); 
     bool isAtEnd();
+    bool match(char);
 public: 
-    Scanner(std::string code);
+    Scanner(std::string);
 
-    void addToken(TokenType ty);
+    void addToken(TokenType);
+    void addToken(TokenType, std::string);
 
     std::vector<Token*> scanTokens();
    
