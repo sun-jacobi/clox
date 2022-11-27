@@ -4,6 +4,9 @@
 Token::Token(TokenType ty, std::string lit, int line) : ty(ty), lit(lit), line(line) {}
 
 Token::Token(TokenType ty, int line) : ty(ty),line(line) {}
+
+
+Token::Token(TokenType ty , int value, int line) : ty(ty), val(value), line(line) {}
     
 std::string Token::type() {
     switch (ty) {
@@ -12,6 +15,21 @@ std::string Token::type() {
         case(TokenType::DoubleEq) : return "==";
         case(TokenType::Eq) : return "=";
         case(TokenType::Str) : return "string";
+        case(TokenType::Integer) : return "integer";
         default: return "";
     }
 }
+
+
+std::string Token::literal() {
+    switch (ty) {
+        case(TokenType::Str) : return lit;
+        default: return "";
+    }
+}
+
+
+int Token::value() {
+    return val;
+}
+

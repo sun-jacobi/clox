@@ -21,13 +21,16 @@ private:
     char pop();
     void commentOut();
     std::string consumeStr(); 
+    int  comsumeInt(char);
+    bool isDigit(char);
     bool isAtEnd();
     bool match(char);
 public: 
     Scanner(std::string);
 
     void addToken(TokenType);
-    void addToken(TokenType, std::string);
+    void addToken(TokenType ty, std::string lit);
+    void addToken(TokenType ty, int val);
 
     std::vector<Token*> scanTokens();
    

@@ -17,7 +17,9 @@ public:
         auto tokens = scanner.scanTokens(); 
         cout << code << endl;
         for (auto token : tokens) {
-            cout << token->type() << endl;
+            cout << "type " << token->type()  <<  endl;
+            cout << "literal " << token->literal() << endl;
+            cout << "value " << token->value() << endl;
         }
     }
     static void repl() {

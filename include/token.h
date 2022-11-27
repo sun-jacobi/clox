@@ -26,7 +26,7 @@ enum TokenType {
     Excla, // !
 
     // Literals
-    Ident, Str, Num,  
+    Ident, Str, Integer, Float,  
     // KEYWORLD
     AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
     PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
@@ -44,7 +44,10 @@ private :
 
 public: 
     Token(TokenType ty, std::string lit, int line);
-    Token(TokenType ty, int line);
+    Token(TokenType, int line);
+    Token(TokenType, int value, int line);
     std::string type();
+    std::string literal();
+    int  value();
 };
 #endif

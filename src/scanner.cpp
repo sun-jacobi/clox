@@ -12,6 +12,12 @@ void Scanner::addToken(TokenType ty, std::string lit) {
 }
 
 
+void Scanner::addToken(TokenType ty, int val) {
+    auto token = new Token(ty, val, line);
+    tokens.push_back(token);
+}
+
+
 Scanner::Scanner(std::string code) :code(code), tokens(0) {}
 
 std::vector<Token*> Scanner::scanTokens(){ 
@@ -70,6 +76,9 @@ std::vector<Token*> Scanner::scanTokens(){
             addToken(TokenType::Str, consumeStr());
             break;
         default:
+            if (isDigit(c)) {
+                addToken(TokenType::Integer, comsumeInt(c)); // current only support integer
+            }
             Logger::report(line, "unexpected character");
         }
     } 
@@ -90,11 +99,15 @@ bool Scanner::match(char expected) {
 }
 
 
+
+
+// read the current token but not advance
 char Scanner::peek() {
     if (isAtEnd()) return '\0';
     return code[curr];
 }
 
+// read the current token but advance
 char Scanner::pop() {
     return code[curr++];
 }
@@ -103,7 +116,9 @@ bool Scanner::isAtEnd() {
     return curr >= code.length();
 } 
 
-
+bool Scanner::isDigit(char c) {
+    return (c >= '0' && c <= '9');
+}
 
 void Scanner::commentOut() {
     while(!isAtEnd() && !match('\n')) {
@@ -119,6 +134,15 @@ std::string Scanner::consumeStr() {
     return str;
 }
 
+int  Scanner::comsumeInt(char c) {
+    std::string str = "";
+    str.push_back(c);
+    while(!isAtEnd() && isdigit(peek())) {
+        str.push_back(pop());
+    }
+    
+    return std::stoi(str);
+}
 
 
 
