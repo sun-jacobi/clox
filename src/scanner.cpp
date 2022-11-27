@@ -18,7 +18,29 @@ void Scanner::addToken(TokenType ty, int val) {
 }
 
 
-Scanner::Scanner(std::string code) :code(code), tokens(0) {}
+Scanner::Scanner(std::string code) :code(code), tokens(0) {
+    keywords["and"] =  TokenType::AND; 
+    keywords["or"] =  TokenType::OR; 
+    
+    
+    keywords["else"] =  TokenType::ELSE;
+    keywords["func"] =  TokenType::FUN; 
+    keywords["for"] =  TokenType::FOR; 
+    keywords["while"] =  TokenType::WHILE; 
+    keywords["if"] =  TokenType::IF; 
+    keywords["nil"] =  TokenType::NIL; 
+    
+    keywords["return"] =  TokenType::RETURN; 
+    keywords["true"] =  TokenType::TRUE; 
+    keywords["false"] =  TokenType::FALSE; 
+    keywords["var"] =  TokenType::VAR; 
+
+    keywords["class"] =  TokenType::CLASS;
+    keywords["super"] =  TokenType::SUPER;
+    keywords["this"] =  TokenType::THIS;
+    keywords["print"] =  TokenType::PRINT;
+    
+}
 
 std::vector<Token*> Scanner::scanTokens(){ 
     while (!isAtEnd()) {
@@ -77,7 +99,14 @@ std::vector<Token*> Scanner::scanTokens(){
             break;
         default:
             if (isDigit(c)) {
-                addToken(TokenType::Integer, comsumeInt(c)); // current only support integer
+                addToken(TokenType::Integer, comsumeInt(c)); 
+                break;// current only support integer
+            }
+            if (isAlpha(c)) {
+                auto word = consumeWord(c);
+                if (keywords.find(word) != keywords.end()) addToken(keywords[word]);
+                else addToken(TokenType::Ident, word);
+                break;
             }
             Logger::report(line, "unexpected character");
         }
@@ -120,6 +149,17 @@ bool Scanner::isDigit(char c) {
     return (c >= '0' && c <= '9');
 }
 
+
+bool Scanner::isAlpha(char c) {
+    return ((c >= 'a' && c <= 'z') 
+            || (c >= 'A' && c <= 'Z') 
+            || c == '_');
+}
+
+bool Scanner::isAlphaDigit(char c) {
+    return isalpha(c) || isDigit(c);
+}
+
 void Scanner::commentOut() {
     while(!isAtEnd() && !match('\n')) {
         pop();
@@ -132,6 +172,17 @@ std::string Scanner::consumeStr() {
         str.push_back(pop());
     }
     return str;
+}
+
+
+
+std::string Scanner::consumeWord(char c) {
+    std::string word = "";
+    word.push_back(c);
+    while(!isAtEnd() && isAlphaDigit(peek())) {
+        word.push_back(pop());
+    }
+    return word;
 }
 
 int  Scanner::comsumeInt(char c) {

@@ -4,6 +4,7 @@
 #include <token.h>
 #include <vector>
 #include <string>
+#include <map>
 //--------
 #include <error.h>
 
@@ -12,6 +13,7 @@ class Scanner {
 private:
     std::string code; 
     std::vector<Token*> tokens;
+    std::map<std::string, TokenType> keywords;
     int curr = 0;
     int start = 0; 
     int line = 1; 
@@ -22,7 +24,10 @@ private:
     void commentOut();
     std::string consumeStr(); 
     int  comsumeInt(char);
+    std::string consumeWord(char);
     bool isDigit(char);
+    bool isAlpha(char); 
+    bool isAlphaDigit(char); 
     bool isAtEnd();
     bool match(char);
 public: 

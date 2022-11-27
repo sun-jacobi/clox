@@ -16,14 +16,18 @@ std::string Token::type() {
         case(TokenType::Eq) : return "=";
         case(TokenType::Str) : return "string";
         case(TokenType::Integer) : return "integer";
+        case(TokenType::OR) : return "or";
+        case(TokenType::Ident) : return "variable";
         default: return "";
     }
+    
 }
 
 
 std::string Token::literal() {
     switch (ty) {
-        case(TokenType::Str) : return lit;
+        case(TokenType::Ident) : 
+        case(TokenType::Str) : return lit;    
         default: return "";
     }
 }
